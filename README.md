@@ -8,7 +8,7 @@ A professional Single Page Application (SPA) built as an interactive CV Dashboar
 
 ## 🌐 Live Preview
 
-> Run locally at :
+> Run locally at : https://spacv.netlify.app/
 
 ---
 

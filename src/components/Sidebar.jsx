@@ -33,7 +33,10 @@ export default function Sidebar({ setPage, activePage }) {
         top: 0,
         display: "flex",
         flexDirection: "column",
-        overflow: "hidden",
+        overflow: "auto",
+        "&::-webkit-scrollbar": { display: "none" },
+        msOverflowStyle: "none",
+        scrollbarWidth: "none",
         flexShrink: 0,
       }}
     >
@@ -46,6 +49,7 @@ export default function Sidebar({ setPage, activePage }) {
           px: collapsed ? 0 : 2,
           py: 2,
           borderBottom: "1px solid rgba(255,255,255,0.8)",
+          flexShrink: 0,
         }}
       >
         {!collapsed && (
@@ -59,7 +63,6 @@ export default function Sidebar({ setPage, activePage }) {
           </Box>
         )}
 
-        {/* Collapse / Expand toggle */}
         <Tooltip title={collapsed ? "Expand sidebar" : "Collapse sidebar"} placement="right">
           <IconButton
             onClick={() => setCollapsed(!collapsed)}
@@ -74,7 +77,6 @@ export default function Sidebar({ setPage, activePage }) {
               flexShrink: 0,
             }}
           >
-            {/* Simple arrow icon — no extra library needed */}
             <span style={{ fontSize: "1.25rem", lineHeight: 1 }}>
               {collapsed ? "▶" : "◀"}
             </span>
@@ -83,7 +85,16 @@ export default function Sidebar({ setPage, activePage }) {
       </Box>
 
       {/* ── Nav items ── */}
-      <Stack spacing={0.5} sx={{ px: collapsed ? 0.5 : 1.5, pt: 1.5, flex: 1 }}>
+      <Stack
+        spacing={0.5}
+        sx={{
+          px: collapsed ? 0.5 : 1.5,
+          pt: 1.5,
+          flex: 1,
+          overflowY: "auto",
+          "&::-webkit-scrollbar": { display: "none" },
+        }}
+      >
         {menuItems.map((item) => {
           const isActive = activePage === item.value;
           return (
@@ -100,12 +111,14 @@ export default function Sidebar({ setPage, activePage }) {
                   px: collapsed ? 1 : 1.5,
                   py: collapsed ? 1.2 : 1,
                   minWidth: 0,
-                  color: "rgba(255,255,255,0.85)",
+                  color: isActive ? "white" : "rgba(255,255,255,0.85)",
                   textTransform: "none",
-                  fontWeight: isActive ? 600 : 600,
+                  fontWeight: isActive ? 700 : 600,
                   fontSize: "1rem",
                   borderRadius: "8px",
-                  bgcolor: "rgba(255,255,255,0.15)",
+                  bgcolor: isActive
+                    ? "rgba(255,255,255,0.25)"
+                    : "rgba(255,255,255,0.15)",
                   "&:hover": {
                     bgcolor: "rgba(255,255,255,0.3)",
                     transform: collapsed ? "none" : "translateX(3px)",
@@ -115,7 +128,9 @@ export default function Sidebar({ setPage, activePage }) {
                   overflow: "hidden",
                 }}
               >
-                <span style={{ fontSize: collapsed ? "1.10rem" : "1.25rem", flexShrink: 1 }}>{item.icon}</span>
+                <span style={{ fontSize: collapsed ? "1.10rem" : "1.25rem", flexShrink: 1 }}>
+                  {item.icon}
+                </span>
                 {!collapsed && item.label}
               </Button>
             </Tooltip>
@@ -128,9 +143,12 @@ export default function Sidebar({ setPage, activePage }) {
         <Box
           sx={{
             px: 2,
-            py: 1.5,
+            py: 1,
+            mt: "1rem",
+            mt: "1rem",
             borderTop: "1px solid rgba(255,255,255,0.15)",
             textAlign: "center",
+            flexShrink: 0,
           }}
         >
           <Typography sx={{ fontSize: "0.8rem", opacity: 0.6 }}>
