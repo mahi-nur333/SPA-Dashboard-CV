@@ -48,7 +48,7 @@ function App() {
       <CssBaseline />
       <Box sx={{ display: "flex", minHeight: "100vh", bgcolor: "background.default" }}>
 
-        {/* ── Mobile hamburger — same button toggles open/close ── */}
+        {/* ── Mobile hamburger*/}
         {isMobile && (
           <IconButton
             onClick={() => setMobileOpen(!mobileOpen)}
